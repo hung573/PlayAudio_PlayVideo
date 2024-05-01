@@ -72,13 +72,13 @@ class audioPlayerView:
         self.load_Playlist_From_File()
 
         #images
-        self.play_photo = PhotoImage(file='play-button.png')
-        self.volume_photo = PhotoImage(file='volume.png')
-        self.mute_photo = PhotoImage(file='mute.png')
-        self.stop_photo = PhotoImage(file='stop.png')
-        self.pause_photo = PhotoImage(file='pause.png')
-        self.next_photo = PhotoImage(file='next.png')
-        self.previous_photo = PhotoImage(file='previous.png')
+        self.play_photo = PhotoImage(file='img/play-button.png')
+        self.volume_photo = PhotoImage(file='img/volume.png')
+        self.mute_photo = PhotoImage(file='img/mute.png')
+        self.stop_photo = PhotoImage(file='img/stop.png')
+        self.pause_photo = PhotoImage(file='img/pause.png')
+        self.next_photo = PhotoImage(file='img/next.png')
+        self.previous_photo = PhotoImage(file='img/previous.png')
 
 
         self.add_btn = Button(left_frame, text="Thêm bài hát",command=self.browse_file)
