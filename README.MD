@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-Before running the application, ensure you have the following dependencies installed:
+Trước khi chạy ứng dụng, hãy đảm bảo bạn đã cài đặt các phần phụ thuộc sau:
 
 - Python 3.x
 - Tkinter
@@ -15,10 +15,12 @@ Before running the application, ensure you have the following dependencies insta
 - hreading
 - OpenCV
 
-You can install the dependencies using pip:
+Bạn có thể cài đặt các thư viện phụ thuộc bằng pip3 nếu như python của bạn ở Version 3.x:
 
 ```
-pip install pytube Pillow requests
+pip3 install pygame
+pip3 install mutagen
+pip3 install opencv-python-headless
 ```
 ## How to Use
 
@@ -38,21 +40,27 @@ python main.py
 ```
 ![UI_Main](img/UI_main.png)
 
-1. **Enter YouTube URL:**
-- In the provided entry field, enter the URL of the YouTube video you want to download.
-- Click on the "Search Video" button to retrieve video information.
+1. **Thêm, xoá các bài hát vào danh sách phát và chọn video:**
+- Bạn click vào nút thêm bài hát và lần lượt thêm các audio mà bạn yêu thích vào.
+- Bạn chọn bài hát mà bạn không thích ở danh sách phát và bạn click vào nút "Xoá bài hát" để bạn xoá bài hát ra khỏi danh sách phát.
+- Bạn click vào nút "Mở Video" và thực hiện chọn video có trên mấy mình để bắt đầu play chúng, khi bạn muốn tắt video bạn có thể ấn "q".
 
-2. **Select Resolution:**
-- After searching for the video, a list of available resolutions will be displayed in the dropdown menu.
-- Select the desired resolution from the dropdown menu.
+2. **Play, pause, stop:**
+- Sau khi bạn thêm được danh sách bài hát, bạn có thể ấn nút "Play" để bắt đầu play bài đầu tiên, hoặc bạn có thể chọn bài hát mà bạn muốn "Play" có trong danh sách phát và bắt đầu play nó.
+- Bạn có thể tạm ngưng bài hát bằng cách ấn vào nút "Pause" và bắt chúng play tiếp tục bằng cách ấn vào nút play.
+- Bạn có thể ngưng hoàn toàn bài hát bằng cách ấn vào nút "Stop".
 
-3. **Download Video:**
-- Once you have selected the resolution, click on the "Download Selected" button to start downloading the video.
-- The downloaded video will be saved in the same directory as the application.
+3. **Chuyển bài:**
+- Bạn có thể chuyển bài xuống bằng cách ấn vào nút "Next".
+- Bạn có thể chuyển bài xuống bằng cách ấn vào nút "Prever".
 
-4. **Error Handling:**
-- If there are any errors during the process, error messages will be displayed in a pop-up window.
+4. **Điều chỉnh âm thanh, và vị trí đoạn nhạc:**
+- Bạn có thể kéo tăng âm lượng hoặc giảm âm lượng bằng cách kéo lên xuống ở nút lên xuống âm lượng. Hoặc bạn có thể để âm lượng yêm lặng bằng cách ấn vào nút "mute".
+- Bạn có thể điều chỉnh vị trí đoạn nhạc bằng cách kéo qua lại ở scroll chạy thời gian của đoạn nhạc.
+
+5. **Xử lý lỗi:**
+- Nếu có bất kỳ lỗi nào xảy ra trong quá trình, các thông báo lỗi sẽ được hiển thị trong một cửa sổ pop-up.
 
 ## Notes
 
-- This application only supports downloading videos available in progressive streams.
+- Ứng dụng này chỉ hổ trợ các bản audio, video đã được tải xuống, và được add vào trong danh sách phát thì ứng dụng này mới có thể phát được.
