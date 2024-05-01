@@ -24,16 +24,20 @@ pip install pytube Pillow requests
 
 **Clone the Repository:**
 ```
-git clone https://github.com/BlazeeH/ytb-vid
+git clone https://github.com/hung573/PlayAudio_PlayVideo
 ```
 **Navigate to the Project Directory:** 
 ```
-cd ytb-vid
+cd PlayAudio_PlayVideo
 ```
 **Run the Application:** 
 ```
-python mnm.py
+python main.py
 ```
+**UI_Main:** 
+```
+![UI_Main](images/UI_main.png)
+
 1. **Enter YouTube URL:**
 - In the provided entry field, enter the URL of the YouTube video you want to download.
 - Click on the "Search Video" button to retrieve video information.
