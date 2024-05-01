@@ -36,7 +36,7 @@ python main.py
 ```
 **UI_Main:** 
 ```
-![UI_Main](images/UI_main.png)
+![UI_Main](img/UI_main.png)
 
 1. **Enter YouTube URL:**
 - In the provided entry field, enter the URL of the YouTube video you want to download.
