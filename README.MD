@@ -38,6 +38,7 @@ python main.py
 ```
 ![UI_Main](img/UI_main.png)
 ```
+```
 **Hướng dẫn sử dụng** 
 1. **Thêm, xoá các bài hát vào danh sách phát và chọn video:**
 - Bạn click vào nút thêm bài hát và lần lượt thêm các audio mà bạn yêu thích vào.
