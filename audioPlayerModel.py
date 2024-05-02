@@ -19,11 +19,11 @@ class audioPlayerModel:
   self.view = view
   self.muted = False
   self.current_song = None
-  mixer.init()
+  mixer.init() # mixer được khởi tạo để phát âm thanh
 
 
  def play_Music(self):
-     self.stop=False
+     self.stop=False 
      if self.paused:
          #mixer.music.unpause()
          mixer.music.play(start=int(self.view.my_slider.get()))
@@ -31,7 +31,7 @@ class audioPlayerModel:
          self.play=True
      else:
          try:
-             if self.play is False:
+             if self.play is False: # kiểm tra xem có bài nào đang được phát hay không
                  time.sleep(1)
                 #  Lấy vị trí của bài hát được chọn trong danh sách phát trên giao diện người dùng.
                  selected_song = self.view.list_song.curselection()
@@ -46,16 +46,18 @@ class audioPlayerModel:
          except:
           return None
 
+# Xoá bài hát
  def del_song(self,selected_song):
      self.stop_Music()
      self.play_list.pop(selected_song)
 
+# thêm bài hát vào ds
  def add_to_playlist(self,filename):
   index = len(self.play_list)
   self.play_list.insert(index, filename)
-  self.current_song = self.play_list[0]
+  self.current_song = self.play_list[0] # cập nhật bài hát đầu tiên sẽ được chơi
 
-
+# set chế độ im lặng
  def mute_Music(self):
     if self.muted:
         mixer.music.set_volume(0.7)
@@ -66,13 +68,14 @@ class audioPlayerModel:
         self.view.scale.set(0)
         self.muted = True
 
-
+# Stop
  def stop_Music(self):
      #self.pasued = False
      self.play = False
      self.stop=True
      mixer.music.stop()
 
+# Âm thanh
  def set_volume(self,val):
     if self.muted is True:
         return
@@ -98,7 +101,7 @@ class audioPlayerModel:
  def slider_Music(self):
      if self.paused==False:
         mixer.music.play(start=int(self.view.my_slider.get()))
-
+    
  def write_List_To_File(self, lines):
      list = []
      list = lines
@@ -107,7 +110,7 @@ class audioPlayerModel:
          if(len(list) == 0):
              playlist_File.close()
          else:
-             playlist_File.write('\n'.join(list))
+             playlist_File.write('\n'.join(list)) # nối các nội dung bằng ký từ xuống dòng
              playlist_File.close()
 
 class playList:
@@ -129,20 +132,21 @@ class playList:
             mixer.music.play()
             self.view.show_details(self.current_song)
 
-        except IndexError:
+        except IndexError: # khi đến cuối danh sách 
             self.index = 0
             result = self.list[self.index]
             self.current_song = self.list[self.index]
             mixer.music.load(self.current_song)
             mixer.music.play()
             self.view.show_details(self.current_song)
+            
         return result
 
     def prev(self):
         time.sleep(1)
         self.view.model.stop = False
         self.index -= 1
-        if self.index < 0:
+        if self.index < 0: # kiểm tra có phải bài đầu tiên trong ds không
             self.index = len(self.list)-1
             self.current_song = self.list[self.index]
             mixer.music.load(self.current_song)
