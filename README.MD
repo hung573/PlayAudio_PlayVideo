@@ -1,6 +1,6 @@
 # Play Audio And Play Video
 
-Đây là một ứng dụng mà bạn có thể thêm 1 hoặc nhiều các bài hát mà bạn yêu thích hoặc có thể là những video mà bạn muốn xem. Được thiết kế dựa trên thư viện Pygame và Tkinter của Python. Nó cho phép bạn có thể điều chỉnh được âm lượng khi play các audio, chuyển bài nếu bạn muốn, bạn có thể tua đoạn nhác đến lúc bạn muốn và cuối cùng là bạn có thể dừng đoạn nhạc khi cần.
+Đây là một ứng dụng mà bạn có thể thêm 1 hoặc nhiều các bài hát mà bạn yêu thích hoặc có thể là những video mà bạn muốn xem. Ứng dụng được thiết kế dựa trên thư viện Pygame và Tkinter của Python. Nó cho phép bạn có thể điều chỉnh được âm lượng khi play các audio, chuyển bài nếu bạn muốn, bạn có thể tua đoạn nhạc đến lúc bạn muốn và cuối cùng là bạn có thể dừng đoạn nhạc khi cần.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Trước khi chạy ứng dụng, hãy đảm bảo bạn đã cài đặt các 
 - OS
 - Mutagen
 - Time
-- hreading
+- Threading
 - OpenCV
 
 Bạn có thể cài đặt các thư viện phụ thuộc bằng pip3 nếu như python của bạn ở Version 3.x:
@@ -22,17 +22,17 @@ pip3 install pygame
 pip3 install mutagen
 pip3 install opencv-python-headless
 ```
-## How to Use
+## Cách tải
 
-**Clone the Repository:**
+**Tryt cập vào github:**
 ```
 git clone https://github.com/hung573/PlayAudio_PlayVideo
 ```
-**Navigate to the Project Directory:** 
+**Đến thư mục và tải về:** 
 ```
 cd PlayAudio_PlayVideo
 ```
-**Run the Application:** 
+**Chạy Application:** 
 ```
 python main.py
 ```
