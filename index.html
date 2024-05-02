@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Audio and Play Video</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Play Audio and Play Video</h1>
+        <p>
+            This is an application where you can add one or more of your favorite songs or videos that you want to watch. The application is designed based on Python's Pygame and Tkinter libraries. It allows you to adjust the volume when playing audio, skip tracks if you wish, you can fast forward to the part of the song you want, and finally, you can pause the audio when needed.
+        </p>
+        <h2>Member</h2>
+        <p> Trần Công Hùng - 3120410197</p>
+        <p> Nguyễn Hoàng Kha - 3120410228</p>
+        <p> Nguyễn Bá Lợi - 3120560056</p>
+        <h2>Prerequisites</h2>
+        <p>
+            Before running the application, make sure you have installed the following dependencies:
+        </p>
+        <ul>
+            <li>Python 3.x</li>
+            <li>Tkinter</li>
+            <li>Pygame</li>
+            <li>OS</li>
+            <li>Mutagen</li>
+            <li>Time</li>
+            <li>Threading</li>
+            <li>OpenCV</li>
+        </ul>
+        <p>
+            You can install the dependencies using pip3 if your Python is version 3.x:
+        </p>
+        <pre>
+            pip3 install pygame
+            pip3 install mutagen
+            pip3 install opencv-python-headless
+        </pre>
+        <h2>Open GitHub</h2>
+        <button class="github-button" onclick="window.location.href='https://github.com/hung573/PlayAudio_PlayVideo'">Get Source</button>
+
+
+        <h2>How to download and run the project</h2>
+        <pre>
+            git clone https://github.com/hung573/PlayAudio_PlayVideo
+            cd PlayAudio_PlayVideo
+            python main.py
+        </pre>
+
+        <h2>UI Application</h2>
+        <img src="/img/UI_main.png" style="width: 700px;"/>
+        <h2>User manual</h2>
+        <ol>
+            <li>
+                <h3>Add, delete songs from the playlist, and select a video.</h3>
+                <ul>
+                    <li>Click the "Add Song" button and sequentially add your favorite audio files.</li>
+                    <li>Select a song you don't like from the playlist and click the "Delete Song" button to remove it from the playlist.</li>
+                    <li>Click the "Open Video" button and choose a video from your device to start playing it. To close the video, you can press "q".</li>
+                </ul>
+            </li>
+            <li>
+                <h3>Play, pause, stop:</h3>
+                <ul>
+                    <li>After you have added a playlist of songs, you can press the "Play" button to start playing the first song, or you can select a song from the playlist that you want to "Play" and start playing it.</li>
+                    <li>You can pause a song by clicking the "Pause" button and resume playing it by clicking the "Play" button.</li>
+                    <li>You can completely stop the song by clicking the "Stop" button.</li>
+                </ul>
+            </li>
+            <li>
+                <h3>Skip songs:</h3>
+                <ul>
+                    <li>You can skip to the next song by clicking the "Next" button.</li>
+                    <li>You can go back to the previous song by clicking the "Previous" button.</li>
+                </ul>
+            </li>
+            <li>
+                <h3>Adjust volume, and seek to a specific position in the audio:</h3>
+                <ul>
+                    <li>You can adjust the volume by dragging the volume up or down using the volume up and down buttons. Alternatively, you can mute the volume by clicking the "Mute" button.</li>
+                    <li>You can seek to a specific position in the audio by dragging the time slider.</li>
+                </ul>
+            </li>
+            <li>
+                <h3>Error handling:</h3>
+                <ul>
+                    <li>If any errors occur during the process, error messages will be displayed in a pop-up window.</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <h2>Notes</h2>
+        <p>
+            This application only supports playing audio and video files that have been downloaded and added to the playlist.
+        </p>
+        
+    </div>
+</body>
+</html>
