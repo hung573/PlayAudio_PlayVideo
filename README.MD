@@ -12,7 +12,7 @@ Trước khi chạy ứng dụng, hãy đảm bảo bạn đã cài đặt các 
 - OS
 - Mutagen
 - Time
-- hreading
+- Threading
 - OpenCV
 
 Bạn có thể cài đặt các thư viện phụ thuộc bằng pip3 nếu như python của bạn ở Version 3.x:
