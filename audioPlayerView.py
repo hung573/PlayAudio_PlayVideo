@@ -134,8 +134,8 @@ class audioPlayerView:
             if selected_media_path.endswith((".mp4", ".avi", ".mov")):
                 self.play_video(selected_media_path)
             else:
-                self.play_media()  # You need to define play_media function
-
+                tkinter.messagebox.showerror("Eror", "Định dạng video không đuọc hỗ trợ...")
+                
     def play_video(self, video_url):
         cap = cv2.VideoCapture(video_url)
         while True:

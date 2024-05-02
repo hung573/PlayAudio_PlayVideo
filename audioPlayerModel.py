@@ -79,10 +79,6 @@ class audioPlayerModel:
     volume =int(val)/100
     mixer.music.set_volume(volume)
 
-
-
-
-
  def pause_Music(self):
     self.paused=True
     self.play=False
@@ -102,7 +98,6 @@ class audioPlayerModel:
  def slider_Music(self):
      if self.paused==False:
         mixer.music.play(start=int(self.view.my_slider.get()))
-
 
  def write_List_To_File(self, lines):
      list = []
