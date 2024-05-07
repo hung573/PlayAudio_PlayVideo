@@ -12,6 +12,10 @@ import tkinter.ttk as ttk
 from tkinter import filedialog
 import cv2
 
+import pygame
+import random
+
+
 
 
 ## THIS CLASS IS ONLY TAKE CARE OF THE GUI PART OF THIS APP
@@ -24,7 +28,9 @@ class audioPlayerView:
         self.root = Tk()
         self.root.title("PlayMusic_Nhom9")
         self.root.iconbitmap(r'play_button_JpT_icon.ico')
-
+        
+        pygame.init()
+        
         menubar = Menu(self.root)  # create menubar
         self.root.config(menu=menubar)
 
@@ -72,7 +78,7 @@ class audioPlayerView:
         
         self.model = audioPlayerModel(self)
         self.load_Playlist_From_File()
-
+        
         #images
         self.play_photo = PhotoImage(file='img/play-button.png')
         self.volume_photo = PhotoImage(file='img/volume.png')
@@ -91,7 +97,6 @@ class audioPlayerView:
         
         self.play_video_btn = Button(left_frame, text="Mở Video", command=self.select_media)
         self.play_video_btn.pack(side=LEFT, padx=10)
-
 
         self.btn_mute = Button(bottomframe, image=self.volume_photo, command=self.update_Mute_Music)
         self.btn_mute.grid(row=0, column=1)
@@ -124,7 +129,9 @@ class audioPlayerView:
         #Đặt hành động khi cửa sổ được đóng và chạy vòng lặp chính của ứng dụng.
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
-
+        
+    
+    
     # mở hộp thoại để chọn tệp
     def select_media(self):
         global selected_media_path
@@ -198,15 +205,18 @@ class audioPlayerView:
         if(self.model.play): # kiểm tra xem âm nhạc có đang phát không
             self.update_Pause_Music() # gọi pause để tạm dừng
             return
-
         self.model.play_Music() 
         if(self.model.current_song!=None):
             self.statusbar['text'] = "playing music  " + os.path.basename(self.model.current_song) # cập nhật thanh trạng thái
         else:
             tkinter.messagebox.showerror("Eror", "Not found music to play !")
         if(self.model.play):
+            time.sleep(1)
+            t1 = threading.Thread(target=self.start_count, args=(self.total_length,)) # tạo biến để bắt đầu đếm thời gian bằng hàm start_count
+            t1.start()
             self.btn_play.configure(image=self.pause_photo)
-
+            
+    
     # xoá bài hát khỏi danh sách
     def update_Delet_Song(self):
         selected_song = self.list_song.curselection()
@@ -261,39 +271,40 @@ class audioPlayerView:
 
     # đếm thời gian của bài hát và cập nhật giao diện người dùng tương ứng.
     def start_count(self,total_length):
-      # mixer.music.get.busy=return fal se when we press stop music
-      self.current_time=0
-      while self.current_time<=total_length and mixer.music.get_busy(): 
+        # mixer.music.get.busy=return fal se when we press stop music
+        self.current_time=0
+        self.pause_event = threading.Event()
+        while self.current_time<=total_length and mixer.music.get_busy(): 
          if self.model.paused:
+            #  self.pause_event.clear()
              continue # tiếp tục
 
          if self.model.stop:
              return # kết thúc vòng lập
-
+         
          else:
-          self.show_current_time(self.current_time) # cập nhật hiển thị tg hiện tại lên UI
-          if(self.my_slider.get()==int(self.total_length)): # nếu thanh trượt == với tổng thời gian  
-              pass 
-
-          if(self.model.paused): # nếu tạm dừng
-              pass
-
-          elif(self.my_slider.get()==int(self.current_time)): # nếu thanh trượt đạt đến tg hiện tại của bài hát
-            slider_position=int(self.total_length)
-            self.my_slider.config(to=slider_position,value=int(self.current_time)) # cập nhật vị trí của thanh trượt
+            self.show_current_time(self.current_time) # cập nhật hiển thị tg hiện tại lên UI
+            if(self.my_slider.get()==int(self.total_length)): # nếu thanh trượt == với tổng thời gian  
+                pass 
+            if(self.model.paused): # nếu tạm dừng
+                pass
             
-          # ở trường hợp khác cập nhật vị trí thanh trượt và hiển thị tg lên UI
-          else:
-              slider_position = int(self.total_length)
-              self.my_slider.config(to=slider_position, value=int(self.my_slider.get()))
-              next_time=int(self.my_slider.get()+1)
-              self.show_current_time(next_time)
-              self.my_slider.config(value=next_time)
-              
-              
-        # nếu không thực hiện việc này sẽ làm cho vòng lập chạy quá nhanh và chạy vô hạn
-          time.sleep(1) # dừng vòng lặp trong 1s để thêm thời gian theo đúng tỹ lệ thật
-          self.current_time+=1 # tăng thời gian hiện tại lên một đơn vị
+            elif(self.my_slider.get()==int(self.current_time)): # nếu thanh trượt đạt đến tg hiện tại của bài hát
+                slider_position=int(self.total_length)
+                self.my_slider.config(to=slider_position,value=int(self.current_time)) # cập nhật vị trí của thanh trượt
+            elif(int(self.current_time) == int(self.total_length)): # nếu thanh trượt == với tổng thời gian  
+                self.update_Next_Music()
+            # ở trường hợp khác cập nhật vị trí thanh trượt và hiển thị tg lên UI
+            else:
+                slider_position = int(self.total_length)
+                self.my_slider.config(to=slider_position, value=int(self.my_slider.get()))
+                next_time=int(self.my_slider.get()+1)
+                self.show_current_time(next_time)
+                self.my_slider.config(value=next_time)
+                
+            # nếu không thực hiện việc này sẽ làm cho vòng lập chạy quá nhanh và chạy vô hạn
+            time.sleep(1) # dừng vòng lặp trong 1s để thêm thời gian theo đúng tỹ lệ thật
+            self.current_time+=1 # tăng thời gian hiện tại lên một đơn vị
 
     #chức năng tạm dừng
     def update_Pause_Music(self):
@@ -307,7 +318,6 @@ class audioPlayerView:
         if self.model.current_song != None and len(self.lines) > 0:
             self.model.next_Music()
             self.next_selection()
-
         else:
             tkinter.messagebox.showerror("Eror", "The List is Empty!")
     # chức năng chuyển bài
@@ -383,7 +393,7 @@ class audioPlayerView:
         self.list_song.activate(next_selection)
         self.list_song.selection_set(next_selection)
 
-
+    
     def update_set_Volume(self):
        self.btn_mute.configure(image=self.volume_photo)
 
