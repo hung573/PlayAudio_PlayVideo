@@ -28,9 +28,9 @@ class audioPlayerView:
         self.root = Tk()
         self.root.title("PlayMusic_Nhom9")
         self.root.iconbitmap(r'play_button_JpT_icon.ico')
-
+        
         pygame.init()
-
+        
         menubar = Menu(self.root)  # create menubar
         self.root.config(menu=menubar)
 
@@ -75,10 +75,10 @@ class audioPlayerView:
         list_song = Listbox(left_frame)
         list_song.pack()
         self.list_song = list_song
-
+        
         self.model = audioPlayerModel(self)
         self.load_Playlist_From_File()
-
+        
         #images
         self.play_photo = PhotoImage(file='img/play-button.png')
         self.volume_photo = PhotoImage(file='img/volume.png')
@@ -94,13 +94,16 @@ class audioPlayerView:
 
         self.del_btn = Button(left_frame, text="Xoá bài hát",command=self.update_Delet_Song)
         self.del_btn.pack(side=LEFT)
-
+        
         self.play_video_btn = Button(left_frame, text="Mở Video", command=self.select_media)
         self.play_video_btn.pack(side=LEFT, padx=10)
+        
+        # self.btn_random_next = Button(left_frame, image=self.volume_photo, command=self.update_next_ramdom)
+        # self.btn_random_next.pack(side=LEFT, padx=10)
 
         self.btn_mute = Button(bottomframe, image=self.volume_photo, command=self.update_Mute_Music)
         self.btn_mute.grid(row=0, column=1)
-
+        
         self.btn_play = Button(middle_frame, image=self.play_photo,command=self.update_Play_Music)
         self.btn_play.grid(row=0, column=1, padx=10)
 
@@ -114,7 +117,7 @@ class audioPlayerView:
 
         self.btn_previous = Button(middle_frame, image=self.previous_photo, command=self.update_Previous_Music)
         self.btn_previous.grid(row=0, column=0, )
-
+        
         #tạo thanh trượt âm thanh 
         self.scale = Scale(bottomframe, from_=0, to=100, orien=HORIZONTAL,command=self.model.set_volume)  # scale of the valum
         self.scale.set(50)  # set the initial valume to be 50
@@ -129,9 +132,9 @@ class audioPlayerView:
         #Đặt hành động khi cửa sổ được đóng và chạy vòng lặp chính của ứng dụng.
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
-
-
-
+        
+    
+    
     # mở hộp thoại để chọn tệp
     def select_media(self):
         global selected_media_path
@@ -146,8 +149,8 @@ class audioPlayerView:
             if selected_media_path.endswith((".mp4", ".avi", ".mov")):
                 self.play_video(selected_media_path)
             else:
-                tkinter.messagebox.showerror("Eror", "Định dạng video không đuọc hỗ trợ...")
-
+                tkinter.messagebox.showerror("Eror", "Lỗi hệ thống !!!")
+                
     def play_video(self, video_url):
         cap = cv2.VideoCapture(video_url)
         while True: # vòng lập vô hạn để bắt đọc từ khung hình trong video
@@ -159,13 +162,14 @@ class audioPlayerView:
                 break
         cap.release() # giải phóng toàn bộ nhớ
         cv2.destroyAllWindows() # đóng toàn bộ cửa sổ openCV
-
+        
     # chọn một tệp âm nhạc từ hộp thoại
     def browse_file(self):
         global filePath
         filePath = filedialog.askopenfilename() # mở hộp thoại chọn tệp
         if(filePath != ''):
-          filename = os.path.basename(filePath) # lấy tên tệp đầy đủ từ đường dẫn
+          filename = os.path.basename(filePath) # lấy tên audio đầy đủ từ đường dẫn a.mp3
+          print("filename: ", filename)
           index = self.list_song.size() 
           self.list_song.insert(index, filename)
           self.list_song.pack() # cập nhật hiển thị trong ds
@@ -187,7 +191,8 @@ class audioPlayerView:
                         self.lines.append(element) # nếu không phải thì được add vào ds lines
                 for filePath in self.lines: # kiểm tra từng đường dẫn trong ds lines
                     index = self.list_song.size()
-                    f = os.path.basename(filePath.rstrip()) # lấy tên tệp ở cuối của đường dẫn "strip()" dùng để loại bỏ những ký tự
+                    f = os.path.basename(filePath.rstrip()) # lấy tên tệp ở cuối a.mp3
+                    print("f:" ,f)
                     self.list_song.insert(index, f) # thêm tên tệp vào danh sách phát của người dùng
                     self.list_song.pack() # cập nhật hiển thị
                     self.model.add_to_playlist(filePath.rstrip())  # Thêm đường dẫn vào danh sách phát trong mô hình người dùng.
@@ -202,7 +207,9 @@ class audioPlayerView:
 
     # chức năng play
     def update_Play_Music(self):
+        print("1",self.model.play)
         if(self.model.play): # kiểm tra xem âm nhạc có đang phát không
+            print("2",self.model.play)
             self.update_Pause_Music() # gọi pause để tạm dừng
             return
         self.model.play_Music() 
@@ -211,17 +218,19 @@ class audioPlayerView:
         else:
             tkinter.messagebox.showerror("Eror", "Not found music to play !")
         if(self.model.play):
-            time.sleep(1)
-            t1 = threading.Thread(target=self.start_count, args=(self.total_length,)) # tạo biến để bắt đầu đếm thời gian bằng hàm start_count
-            t1.start()
+            print("total_length",int(self.total_length))
             self.btn_play.configure(image=self.pause_photo)
-
-
+            t1 = threading.Thread(target=self.start_count, args=(self.total_length,)) # tạo biến để bắt đầu đếm thời gian bằng hàm start_count
+            time.sleep(1)
+            t1.start()
+            
+    
     # xoá bài hát khỏi danh sách
     def update_Delet_Song(self):
         selected_song = self.list_song.curselection()
         self.list_song.delete(selected_song)
         selected_song = int(selected_song[0]) # chuyển về dạng số nguyên
+        print("selected_song: ",selected_song)
         self.lines.pop(selected_song) #delete the selected song
         self.model.del_song(selected_song)
         if (selected_song > 0): # kiểm tra không phải là bài đầu tiên
@@ -237,12 +246,20 @@ class audioPlayerView:
 
     # chức năng tắt âm thanh
     def update_Mute_Music(self):
-      self.model.mute_Music()
-      if(self.model.muted):
-       self.btn_mute.configure(image=self.mute_photo)
-      else:
-       self.btn_mute.configure(image=self.volume_photo)
+        self.model.mute_Music()
+        print("mute: ",self.model.muted)
+        if(self.model.muted):
+            self.btn_mute.configure(image=self.mute_photo)
+        else:
+            self.btn_mute.configure(image=self.volume_photo)
 
+    def update_next_ramdom(self):
+        self.model.random_next()
+        print("random_next: ",self.model.random)
+        if(self.model.random):
+            self.btn_random_next.configure(image=self.mute_photo)
+        else:
+            self.btn_random_next.configure(image=self.volume_photo)
     # chức năng stop
     def update_Stop_Music(self):
         self.model.stop_Music()
@@ -281,14 +298,13 @@ class audioPlayerView:
 
          if self.model.stop:
              return # kết thúc vòng lập
-
+         
          else:
             self.show_current_time(self.current_time) # cập nhật hiển thị tg hiện tại lên UI
             if(self.my_slider.get()==int(self.total_length)): # nếu thanh trượt == với tổng thời gian  
-                pass 
+                pass
             if(self.model.paused): # nếu tạm dừng
                 pass
-
             elif(self.my_slider.get()==int(self.current_time)): # nếu thanh trượt đạt đến tg hiện tại của bài hát
                 slider_position=int(self.total_length)
                 self.my_slider.config(to=slider_position,value=int(self.current_time)) # cập nhật vị trí của thanh trượt
@@ -301,7 +317,7 @@ class audioPlayerView:
                 next_time=int(self.my_slider.get()+1)
                 self.show_current_time(next_time)
                 self.my_slider.config(value=next_time)
-
+                
             # nếu không thực hiện việc này sẽ làm cho vòng lập chạy quá nhanh và chạy vô hạn
             time.sleep(1) # dừng vòng lặp trong 1s để thêm thời gian theo đúng tỹ lệ thật
             self.current_time+=1 # tăng thời gian hiện tại lên một đơn vị
@@ -312,7 +328,7 @@ class audioPlayerView:
         self.model.pause_Music()
         self.btn_play.configure(image=self.play_photo)
         self.statusbar['text'] = "Music pause"
-
+        
     # chức năng chuyển bài
     def update_Next_Music(self):
         if self.model.current_song != None and len(self.lines) > 0:
@@ -353,16 +369,25 @@ class audioPlayerView:
     # chuyển bài hát khi bài hát đang phát
     def next_selection(self):
         selection_indices = self.list_song.curselection()
+        print(selection_indices)
 
         # default next selection is the beginning
         next_selection = 0
 
+        # if self.model.random:
+        #     next_selection = random.randint(0, len(self.lines)-1)
+        #     last_selection = next_selection 
+        #     print("next_selection: ",next_selection)
+        #     print("last_selection: ",last_selection)
+            
+        # else:
         # make sure at least one item is selected
         if len(selection_indices) > 0:
             # Get the last selection, remember they are strings for some reason
             # so convert to int
             last_selection = int(selection_indices[-1])
-            next_selection = last_selection + 1
+            next_selection = last_selection + 1  
+            
         if int(selection_indices[-1]) == self.list_song.size() - 1:
             last_selection = int(selection_indices[-1])
             next_selection = 0
@@ -371,20 +396,20 @@ class audioPlayerView:
         self.list_song.activate(next_selection)
         self.list_song.selection_set(next_selection)
         self.btn_play.configure(image=self.pause_photo)
-
+        
 
     def perv_selection(self):
         selection_indices = self.list_song.curselection()
 
         # default next selection is the beginning
         next_selection = 0
-
+        
         # default last selection is the beginning
         last_selection = selection_indices[0]
-
+        
         if last_selection == 0:
             next_selection = self.list_song.size() - 1
-
+        
         # make sure at least one item is selected
         elif last_selection <= self.list_song.size() - 1:
             next_selection = last_selection - 1
@@ -393,7 +418,7 @@ class audioPlayerView:
         self.list_song.activate(next_selection)
         self.list_song.selection_set(next_selection)
 
-
+    
     def update_set_Volume(self):
        self.btn_mute.configure(image=self.volume_photo)
 
