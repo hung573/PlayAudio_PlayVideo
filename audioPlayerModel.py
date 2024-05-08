@@ -112,6 +112,8 @@ class audioPlayerModel:
         self.stop = True
         self.playListIterator.next()
         self.view.my_slider.config(value=0)
+
+            
         
 
     # điều khiển thanh trượt
@@ -173,12 +175,14 @@ class playList:
         self.view.model.stop = False
         self.index -= 1
         if self.index < 0: # kiểm tra có phải bài đầu tiên trong ds không
+            print("index < 0", self.index)
             self.index = len(self.list)-1
             self.current_song = self.list[self.index]
             mixer.music.load(self.current_song)
             mixer.music.play()
             self.view.show_details(self.current_song)
         else:
+            print("else: ", self.index)
             self.current_song = self.list[self.index]
             mixer.music.load(self.current_song)
             mixer.music.play()

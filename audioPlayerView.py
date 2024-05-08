@@ -290,7 +290,7 @@ class audioPlayerView:
     def start_count(self,total_length):
         # mixer.music.get.busy=return fal se when we press stop music
         self.current_time=0
-        self.pause_event = threading.Event()
+        # self.pause_event = threading.Event()
         while self.current_time<=total_length and mixer.music.get_busy(): 
          if self.model.paused:
             #  self.pause_event.clear()
@@ -417,6 +417,7 @@ class audioPlayerView:
         self.list_song.selection_clear(last_selection)
         self.list_song.activate(next_selection)
         self.list_song.selection_set(next_selection)
+        self.btn_play.configure(image=self.pause_photo)
 
     
     def update_set_Volume(self):
