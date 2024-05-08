@@ -1,6 +1,8 @@
 from pygame import mixer
 import time
 import pygame
+import random
+
 
 
 ##THIS MODEL CLASS IS THE Logic IMPLEMENTATION OF ALL THE BUTTON ON THE GUI
@@ -19,6 +21,9 @@ class audioPlayerModel:
         self.view = view
         self.muted = False
         self.current_song = None
+        
+        self.random = False
+        
         
         mixer.init() # mixer được khởi tạo để phát âm thanh
         pygame.init()
@@ -72,6 +77,12 @@ class audioPlayerModel:
             mixer.music.set_volume(0)
             self.view.scale.set(0)
             self.muted = True
+    
+    def random_next(self):
+        if self.random:
+            self.random = False
+        else:
+            self.random = True
 
     # Stop
     def stop_Music(self):
@@ -128,7 +139,17 @@ class playList:
         self.view=view
         self.model=model
         
+        
     def next(self):
+        # if self.view.model.random:
+        #     self.index = random.randint(0, len(self.list) - 1)
+        #     print("index", self.index)
+        #     result = self.list[self.index]
+        #     self.current_song = self.list[self.index]
+        #     mixer.music.load(self.current_song)
+        #     mixer.music.play()
+        #     self.view.show_details(self.current_song)
+        # else:
         try:
             time.sleep(1)
             self.view.model.stop=False
@@ -138,7 +159,6 @@ class playList:
             mixer.music.load(self.current_song)
             mixer.music.play()
             self.view.show_details(self.current_song)
-
         except IndexError: # khi đến cuối danh sách 
             self.index = 0
             result = self.list[self.index]
