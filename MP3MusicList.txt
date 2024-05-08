@@ -1,5 +1,3 @@
-/Users/mac/local/HOCTAP/Nam4_HK2/OSS/MusicPlayer/PlaylistMussic/AIFF.aiff
-
 /Users/mac/local/HOCTAP/Nam4_HK2/OSS/MusicPlayer/PlaylistMussic/FLAC.flac
 
 /Users/mac/local/HOCTAP/Nam4_HK2/OSS/MusicPlayer/PlaylistMussic/OGG.ogg

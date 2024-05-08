@@ -166,7 +166,6 @@ class playList:
             mixer.music.load(self.current_song)
             mixer.music.play()
             self.view.show_details(self.current_song)
-            
         return result
 
     def prev(self):
